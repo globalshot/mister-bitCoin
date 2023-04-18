@@ -1,0 +1,27 @@
+section.edit-contact{
+    // display: flex;
+    max-width: 240px;
+    min-width: max-content;
+    margin: auto;
+    form{
+        display: flex;
+        flex-direction: column;
+        max-width: 240px;
+        label{
+            margin-block-end: 10px;
+            margin-block-start: 30px;
+        }
+        input{
+            background-color: rgb(247, 237, 237);
+            border: 1px solid black;
+            padding: 10px;
+            font-size: 90%;
+        }
+        button{
+            margin-block: 16px;
+            width: max-content;
+            padding: 8px;
+            border-radius: 6px;
+        }
+    }
+}

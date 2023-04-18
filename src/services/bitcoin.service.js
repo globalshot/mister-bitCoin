@@ -33,6 +33,13 @@ function getRate() {
 
 function getMarketPrice(){
     //go back to first page and look
+    return axios.get(`https://api.blockchain.info/charts/market-price?timespan=5months&format=json&cors=true`)
+        .then(res => {
+            return res.data})
+        .catch(err => {
+            console.log('failed get rate');
+            console.log('err',err);
+        })
 }
 
 function getConfirmedTransactions()  {

@@ -1,6 +1,7 @@
-import React, { Component, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { contactService } from '../services/contact.service'
 import { useNavigate, useParams } from 'react-router-dom'
+import { useForm } from '../customHooks/useForm'
 
 export function ContactEdit(props) {
 
@@ -10,8 +11,9 @@ export function ContactEdit(props) {
     const navigate = useNavigate()
 
     useEffect(() => {
-        loadContact
+        loadContact()
     }, [])
+    
     async function loadContact() {
         const contactId = params.id
         if (contactId) {
@@ -28,29 +30,13 @@ export function ContactEdit(props) {
         ev.preventDefault()
         try {
             await contactService.saveContact({ ...contact })
-            navigate('/')
+            navigate('/contact')
         } catch (error) {
             console.log('error:', error)
         }
     }
 
     // hand change not anymore here
-    handleChange = ({ target }) => {
-        let field = target.name
-        if (field === 'contactName') field = 'name'
-        let value = target.value
-
-        switch (target.type) {
-            case 'number':
-            case 'range':
-                value = +value
-                break;
-            case 'checkbox':
-                value = target.checked
-                break;
-        }
-        setContact(({ contact }) => ({ contact: { ...contact, [field]: value } }))
-    }
     async function deleteContact() {
         try {
             await contactService.deleteContact(contact._id)
@@ -61,20 +47,20 @@ export function ContactEdit(props) {
         }
     }
     const { name, email, phone } = contact
-    const contactName = name
+    // const contactName = name
     return (
         <section className="edit-contact">
             <h1>{contact._id ? 'Edit' : 'Add'} Contact</h1>
             {contact._id && <button onClick={deleteContact}>Delete contact</button>}
             <form onSubmit={onSaveContact}>
-                <label htmlFor="contactName">Name</label>
-                <input type="text" onChange={handleChange} value={contactName} name='contactName' id='contactName' />
+                <label htmlFor="name">Name:</label>
+                <input type="text" onChange={handleChange} value={name} name='name' id='name' placeholder='For example: Jhon Test' />
 
-                <label htmlFor="email">Email</label>
-                <input type="text" onChange={handleChange} value={email} name='email' id='email' />
+                <label htmlFor="email">Email:</label>
+                <input type="text" onChange={handleChange} value={email} name='email' id='email' placeholder='For example: example@test.com'/>
 
-                <label htmlFor="phone">Phone</label>
-                <input type='text' onChange={handleChange} value={phone} name='phone' id='phone' />
+                <label htmlFor="phone">Phone:</label>
+                <input type='text' onChange={handleChange} value={phone} name='phone' id='phone' placeholder='For example: +1 (111) 123-1234'/>
                 <button>Save</button>
             </form>
         </section>

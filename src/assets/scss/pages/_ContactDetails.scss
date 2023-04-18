@@ -1,0 +1,25 @@
+.contact-info {
+    display: flex;
+    padding-block-start: 40px;
+    .info-card{
+        background-color: rgb(128, 128, 128, 80%);
+    }
+    div.user-info {
+        font-size: 120%;
+        margin-block-end: 30px;
+        font-weight: 500;
+    }
+
+    div.edit {
+        :hover {
+            cursor: pointer;
+            background-color: rgb(177, 173, 173);
+        }
+        button {
+            padding: 5px;
+            border-radius: 4px;
+            font-weight: 500;
+
+        }
+    }
+}

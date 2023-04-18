@@ -14,7 +14,7 @@
 //         resolve(contact)
 //     })
 // }
-export const UserService = {
+export const userService = {
     getUsers,
     getUserById,
     signup,

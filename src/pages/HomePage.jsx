@@ -1,35 +1,40 @@
 import { Component } from 'react'
-import { UserService } from '../services/user.service'
+import { userService } from '../services/user.service'
 import { BitcoinService } from '../services/bitcoin.service'
+import { useEffect } from 'react'
+import { useState } from 'react'
 
 export function HomePage(props) {
-    state = {
-        user: null,
-        rate: null
-    }
-    async componentDidMount() {
-        this.getCurrUser()
+    
+    const [user, setUser] = useState(null)
+    const [rate, setRate] = useState(null)
+
+    useEffect(() =>{
+        getCurrUser()
+        getRate()
+    },[])
+
+    async function getRate() {
         const rate = await BitcoinService.getRate()
-        this.setState({rate})
+        setRate( rate )
     }
-    getCurrUser = async () => {
-        const user = await UserService.getLoggedUser()
-        this.setState({ user })
+
+    async function getCurrUser() {
+        // const loggedIn = await userService.getLoggedUser()
+        const loggedIn = {name: 'tester', coins: 100}
+        setUser( loggedIn )
     }
-    onSignup = () => {
-        UserService.signup('test')
+    function onSignup() {
+        userService.signup('test')
     }
-    render() {
-        const { user, rate } = this.state
-        if (!user || !rate) return <div>loading</div>
+        if (!user) return <div>loading</div>
         return (
-            <section>
-                <button onClick={this.onSignup}>signup</button>
+            <section className='user-info-card'>
+                {/* <button onClick={onSignup}>signup</button> */}
                 {/* <div>{user}</div> */}
-                <div>name: {user.name}</div>
-                <div>coins: {user.coins}</div>
-                <div>your bit coins: {(rate*user.coins).toFixed(5)}</div>
+                <div className='user-info'>Username: {user.name}</div>
+                <div className='user-info'>Coins: {user.coins}</div>
+                <div className='user-info'>Your bit coins: {(rate*user.coins).toFixed(5)}</div>
             </section>
         )
     }
-}
