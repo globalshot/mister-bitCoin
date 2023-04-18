@@ -1,0 +1,25 @@
+.contact-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+
+
+.contact-preview {
+    border: 2px solid white;
+    width: max-content;
+    margin: auto;
+    margin-block: 8px;
+    padding-inline: 4px;
+    flex-grow: 1;
+    width: 30%;
+    height: 100px;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.flex {
+    display: flex;
+}
